@@ -7,29 +7,27 @@ import java.util.*;
 import java.util.Date;
 
 public class Customer {
-    static Map<Long, Product> products;
     Map<Long, Invoice> invoices;
+    static Map<Long, Product> products;
+
     private Invoice invoice;
     private Product product;
+    private double total = 0;
     private Scanner inputKeyboard;
     private boolean completeTask = false;
-    private double total = 0;
+
     Admin admin = new Admin();
     Date date = new Date();
     File file = new File("src/com/company/output.txt");
     PrintWriter writer = new PrintWriter(file);
 
-
-public Customer() throws FileNotFoundException{
-
-    products = new HashMap<Long, Product>();
-    invoices = new HashMap<Long, Invoice>();
-    admin.addProduct(products);
-}
-
+    public Customer() throws FileNotFoundException {
+        products = new HashMap<Long, Product>();
+        invoices = new HashMap<Long, Invoice>();
+        admin.addProduct(products);
+    }
 
     public void run() {
-
         inputKeyboard = new Scanner(System.in);
         while (!completeTask) {
             System.out.println("Select an option  1 = Show Items ," +
@@ -46,11 +44,11 @@ public Customer() throws FileNotFoundException{
         if (products.isEmpty()) {
             System.out.println("No Product has been added");
         }
-        for (Map.Entry<Long, Product> entry : products.entrySet()) {;
-            System.out.printf( "%d\t\t %-1s\t\t %9s\t\t %5d\n",
-                     entry.getKey(), entry.getValue().getProductName(),
-                    entry.getValue().getProductCategory()
-                    ,entry.getValue().getProductPrice());
+        for (Map.Entry<Long, Product> entry : products.entrySet()) {
+            ;
+            System.out.printf("%d\t\t %-1s\t\t %9s\t\t %5d\n",
+                    entry.getKey(), entry.getValue().getProductName(),
+                    entry.getValue().getProductCategory(), entry.getValue().getProductPrice());
         }
         System.out.println("+=====================================================+");
     }
@@ -122,14 +120,14 @@ public Customer() throws FileNotFoundException{
                 // if the item variable value that the user entered
                 // matches the product id in products HashMap then addToInvoice
                 if (products.containsKey(item)) {
-                    pId =1;
+                    pId = 1;
                     addToInvoice(item, product, pId);
 
                 } else if (products.containsKey(item)) {
-                    pId =2;
+                    pId = 2;
                     addToInvoice(item, product, pId);
                 } else {
-                    pId =3;
+                    pId = 3;
                     addToInvoice(item, product, pId);
                 }
                 // call to request for another purchase
@@ -150,10 +148,10 @@ public Customer() throws FileNotFoundException{
                     pId = 4;
                     addToInvoice(item, product, pId);
                 } else if (products.containsKey(item)) {
-                    pId =5;
+                    pId = 5;
                     addToInvoice(item, product, pId);
                 } else {
-                    pId =6;
+                    pId = 6;
                     addToInvoice(item, product, pId);
                 }
                 buyAnother();
@@ -169,14 +167,14 @@ public Customer() throws FileNotFoundException{
                 });
                 long item = inputKeyboard.nextLong();
                 if (products.containsKey(item)) {
-                    pId =7;
+                    pId = 7;
                     addToInvoice(item, product, pId);
 
                 } else if (products.containsKey(item)) {
-                    pId =8;
+                    pId = 8;
                     addToInvoice(item, product, pId);
                 } else {
-                    pId =9;
+                    pId = 9;
                     addToInvoice(item, product, pId);
                 }
                 buyAnother();
@@ -186,7 +184,7 @@ public Customer() throws FileNotFoundException{
         }
     }
 
-    private void checkOut(){
+    private void checkOut() {
 
         // dude you can't check out an empty basket, can you?
         if (invoices.isEmpty()) {
@@ -204,11 +202,11 @@ public Customer() throws FileNotFoundException{
             writer.println("=======================================++");
             invoices.forEach((key, value) -> {
                 writer.println("| " + value.getProduct().getProductName() + " \t\t\t "
-                        + value.getProduct().getProductPrice() );
+                        + value.getProduct().getProductPrice());
             });
             writer.println(
                     "|Total = \t\t\tD" + total + "  |\n"
-                            +"Time is purchase: "+date.toString()+"\n"
+                            + "Time is purchase: " + date.toString() + "\n"
                             + "=========================================|");
             writer.println("GoodBye, Thank you for shopping with us");
             exit();

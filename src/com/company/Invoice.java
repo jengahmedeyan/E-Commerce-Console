@@ -13,7 +13,6 @@ public class Invoice {
     return product;
   }
 
-
   public double getInvoiceTotal() {
     return invoiceTotal;
   }
